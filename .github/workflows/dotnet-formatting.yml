@@ -19,7 +19,7 @@ jobs:
       - name: Install CSharpier
         run: dotnet tool install csharpier -g
       - name: Add .dotnet/tools to PATH
-        run: echo "::add-path::/root/.dotnet/tools"
+        run: echo "/root/.dotnet/tools" >> $GITHUB_PATH
       - name: Restore tools
         run: dotnet tool restore
       - name: Check formatting with CSharpier
