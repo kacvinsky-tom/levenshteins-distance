@@ -11,7 +11,7 @@ public class StringsComparison
     {
         _stringsComparer = stringsComparer;
     }
-    
+
     public void RunComparisons()
     {
         for (var x = 1; x < 50000; x += 1)
@@ -37,8 +37,16 @@ public class StringsComparison
                 50
             );
 
-            _stringsComparer.Compare("xxxxxxxxxxx", "xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy", 50);
-            _stringsComparer.Compare("xxxxxxxxxxx", "xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy", 50);
+            _stringsComparer.Compare(
+                "xxxxxxxxxxx",
+                "xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy",
+                50
+            );
+            _stringsComparer.Compare(
+                "xxxxxxxxxxx",
+                "xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy",
+                50
+            );
             _stringsComparer.Compare(
                 "xxxxxxxxxxx",
                 $"xxxxxxxxxxx xxxxxxxxxxxxxxxxx{x} yyyyyyyyyyyyy",
@@ -55,7 +63,11 @@ public class StringsComparison
                 50
             );
 
-            _stringsComparer.Compare("xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy", "xxxxxxxxxxx", 50);
+            _stringsComparer.Compare(
+                "xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy",
+                "xxxxxxxxxxx",
+                50
+            );
             _stringsComparer.Compare(
                 "xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy",
                 $"xxxxxxxxxxx{x}",

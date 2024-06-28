@@ -14,10 +14,12 @@ namespace HomeWork
             var services = new ServiceCollection();
             RegisterServices(services);
             var serviceProvider = services.BuildServiceProvider();
-            var stringComparer = new StringsComparer(serviceProvider.GetService<ILevenshteinDistance>());
+            var stringComparer = new StringsComparer(
+                serviceProvider.GetService<ILevenshteinDistance>()
+            );
             var stringsComparison = new StringsComparison(stringComparer);
             var ws = new Stopwatch();
-            
+
             Console.WriteLine("Start");
             ws.Restart();
             stringsComparison.RunComparisons();

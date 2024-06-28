@@ -4,7 +4,7 @@ using HomeWork.Comparers;
 namespace HomeWork.Levenshtein;
 
 public class OldLevenshteinDistance : ILevenshteinDistance
-{        
+{
     /// <summary>
     /// Levenshteins the distance. (Some very old levenstain, please do not change :))
     /// </summary>
@@ -32,7 +32,7 @@ public class OldLevenshteinDistance : ILevenshteinDistance
                 );
         return d[s.Length, t.Length];
     }
-    
+
     private static bool CharCompare(char a, char b)
     {
         return CharsComparer.Compare(a, b);
