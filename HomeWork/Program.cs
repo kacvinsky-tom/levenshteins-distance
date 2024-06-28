@@ -14,23 +14,67 @@ namespace HomeWork
 
             for (int x = 1; x < 50000; x = x + 1)
             {
-                CompareStrings("xxxxxxxxxxx xxxxxxxxxxxxxxxxx xxxxxxxxxxxxx", $"xxxxxxxxxxx xxxxxxxxxxxxxxxxx xxxxxxxxxxxxy{x} yyyyyyyy xaaaaaaa", 70);
-                CompareStrings("yyy xxxxxx xxxxxxxxxxxxx", "xxxxxxxxxxx xxxxxxxxxxxxxxxxx xxxxxxxxxxxxy", 70);
-                CompareStrings("xxxxxxxxxxx xxxxxxx", "xxxxxxxxxxx xxxxxyyyyxxxxxxxx xxxxxxxxxxxxy", 70);
-                CompareStrings($"xxxxxxxxxxx {x}xxxxxxxxxxxxxxxxx xxxxxxxxxxxxx", "xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy", 50);
+                CompareStrings(
+                    "xxxxxxxxxxx xxxxxxxxxxxxxxxxx xxxxxxxxxxxxx",
+                    $"xxxxxxxxxxx xxxxxxxxxxxxxxxxx xxxxxxxxxxxxy{x} yyyyyyyy xaaaaaaa",
+                    70
+                );
+                CompareStrings(
+                    "yyy xxxxxx xxxxxxxxxxxxx",
+                    "xxxxxxxxxxx xxxxxxxxxxxxxxxxx xxxxxxxxxxxxy",
+                    70
+                );
+                CompareStrings(
+                    "xxxxxxxxxxx xxxxxxx",
+                    "xxxxxxxxxxx xxxxxyyyyxxxxxxxx xxxxxxxxxxxxy",
+                    70
+                );
+                CompareStrings(
+                    $"xxxxxxxxxxx {x}xxxxxxxxxxxxxxxxx xxxxxxxxxxxxx",
+                    "xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy",
+                    50
+                );
 
                 CompareStrings("xxxxxxxxxxx", "xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy", 50);
                 CompareStrings("xxxxxxxxxxx", "xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy", 50);
-                CompareStrings("xxxxxxxxxxx", $"xxxxxxxxxxx xxxxxxxxxxxxxxxxx{x} yyyyyyyyyyyyy", 50);
-                CompareStrings("xxxxxxxxxxx xxxxxxxxxxxxxxxxx", "xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy xxxxxxxxx", 50);
-                CompareStrings("xxxxxxxxxxx xxxxxxxxxxxxxxxxx xxxxxxxxxxxxx", "xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy xxxxxxxx yyyyyyyy", 50);
+                CompareStrings(
+                    "xxxxxxxxxxx",
+                    $"xxxxxxxxxxx xxxxxxxxxxxxxxxxx{x} yyyyyyyyyyyyy",
+                    50
+                );
+                CompareStrings(
+                    "xxxxxxxxxxx xxxxxxxxxxxxxxxxx",
+                    "xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy xxxxxxxxx",
+                    50
+                );
+                CompareStrings(
+                    "xxxxxxxxxxx xxxxxxxxxxxxxxxxx xxxxxxxxxxxxx",
+                    "xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy xxxxxxxx yyyyyyyy",
+                    50
+                );
 
                 CompareStrings("xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy", "xxxxxxxxxxx", 50);
-                CompareStrings("xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy", $"xxxxxxxxxxx{x}", 50);
-                CompareStrings("xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy", $"xxxxx{x}xxxxxx", 50);
-                CompareStrings("xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy xxxxxxxxx", "xxxxxxxxxxx xxxxxxxxxxxxxxxxx", 60);
+                CompareStrings(
+                    "xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy",
+                    $"xxxxxxxxxxx{x}",
+                    50
+                );
+                CompareStrings(
+                    "xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy",
+                    $"xxxxx{x}xxxxxx",
+                    50
+                );
+                CompareStrings(
+                    "xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy xxxxxxxxx",
+                    "xxxxxxxxxxx xxxxxxxxxxxxxxxxx",
+                    60
+                );
 
-                CompareStrings($"xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy xxxxxxxx {x}yyyyyyyy", "xxxxxxxxxxx xxxxxxxxxxxxxxxxx xxxxxxxxxxxxx", 50);
+                CompareStrings(
+                    $"xxxxxxxxxxx xxxxxxxxxxxxxxxxx yyyyyyyyyyyyy xxxxxxxx {x}yyyyyyyy",
+                    "xxxxxxxxxxx xxxxxxxxxxxxxxxxx xxxxxxxxxxxxx",
+                    50
+                );
             }
 
             ws.Stop();
@@ -69,7 +113,6 @@ namespace HomeWork
             return percentSimilarity;
         }
 
-
         /// <summary>
         /// Levenshteins the distance. (Some very old levenstain, please do not change :))
         /// </summary>
@@ -86,11 +129,13 @@ namespace HomeWork
             for (int j = 1; j <= t.Length; j++)
             for (int i = 1; i <= s.Length; i++)
                 if (CharCompare(s[i - 1], t[j - 1]))
-                    d[i, j] = d[i - 1, j - 1];  //no operation
+                    d[i, j] = d[i - 1, j - 1]; //no operation
                 else
-                    d[i, j] = Math.Min(Math.Min(
-                            d[i - 1, j] + 1,    //a deletion
-                            d[i, j - 1] + 1),   //an insertion
+                    d[i, j] = Math.Min(
+                        Math.Min(
+                            d[i - 1, j] + 1, //a deletion
+                            d[i, j - 1] + 1
+                        ), //an insertion
                         d[i - 1, j - 1] + 1 //a substitution
                     );
             return d[s.Length, t.Length];
