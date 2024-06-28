@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using BenchmarkDotNet.Running;
+using HomeWork.Benchmarks;
 using HomeWork.Comparers;
 using HomeWork.Comparisons;
 using HomeWork.Levenshtein;
@@ -11,22 +13,25 @@ namespace HomeWork
     {
         private static void Main()
         {
-            var services = new ServiceCollection();
-            RegisterServices(services);
-            var serviceProvider = services.BuildServiceProvider();
-            var stringComparer = new StringsComparer(
-                serviceProvider.GetService<ILevenshteinDistance>()
-            );
-            var stringsComparison = new StringsComparison(stringComparer);
+            // BenchmarkDotNet Benchmark (For more accurate benchmarking)
+            BenchmarkRunner.Run<StringsComparisonBenchmark>();
+            
+            // StopWatch Benchmark (For faster benchmarking)
+            
+            /*
+            var stringComparisonBenchmark = new StringsComparisonBenchmark();
+            stringComparisonBenchmark.Setup();
             var ws = new Stopwatch();
 
             Console.WriteLine("Start");
             ws.Restart();
-            stringsComparison.RunComparisons();
+            stringComparisonBenchmark.Run();
             ws.Stop();
+            
             Console.WriteLine($"Finished in: {ws.ElapsedTicks}");
             Console.WriteLine($"Finished in: {ws.Elapsed}");
-            Console.ReadKey();
+            */
+            
         }
 
         private static void RegisterServices(IServiceCollection services)
