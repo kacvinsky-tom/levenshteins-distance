@@ -1,11 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using BenchmarkDotNet.Running;
-using HomeWork.Benchmarks;
-using HomeWork.Comparers;
-using HomeWork.Comparisons;
-using HomeWork.Levenshtein;
-using Microsoft.Extensions.DependencyInjection;
+﻿using HomeWork.Benchmarks;
 
 namespace HomeWork
 {
@@ -13,24 +6,13 @@ namespace HomeWork
     {
         private static void Main()
         {
+            var stringComparisonBenchmark = new StringsComparisonBenchmark();
+
             // BenchmarkDotNet Benchmark (For more accurate benchmarking)
-            BenchmarkRunner.Run<StringsComparisonBenchmark>();
+            stringComparisonBenchmark.ExecuteWithDotNetBenchmark();
 
             // StopWatch Benchmark (For faster benchmarking)
-
-            /*
-            var stringComparisonBenchmark = new StringsComparisonBenchmark();
-            stringComparisonBenchmark.Setup();
-            var ws = new Stopwatch();
-
-            Console.WriteLine("Start");
-            ws.Restart();
-            stringComparisonBenchmark.Run();
-            ws.Stop();
-            
-            Console.WriteLine($"Finished in: {ws.ElapsedTicks}");
-            Console.WriteLine($"Finished in: {ws.Elapsed}");
-            */
+            stringComparisonBenchmark.ExecuteWithStopWatches();
         }
     }
 }

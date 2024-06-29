@@ -1,4 +1,7 @@
+using System;
+using System.Diagnostics;
 using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Running;
 using HomeWork.Calculators;
 using HomeWork.Comparers;
 using HomeWork.Comparisons;
@@ -12,8 +15,26 @@ public class StringsComparisonBenchmark
 {
     private StringsComparison _stringsComparison;
 
+    public void ExecuteWithDotNetBenchmark()
+    {
+        BenchmarkRunner.Run<StringsComparisonBenchmark>();
+    }
+
+    public void ExecuteWithStopWatches()
+    {
+        Setup();
+        var ws = new Stopwatch();
+
+        Console.WriteLine("Start");
+        ws.Restart();
+        Run();
+        ws.Stop();
+        Console.WriteLine($"Finished in: {ws.ElapsedTicks}");
+        Console.WriteLine($"Finished in: {ws.Elapsed}");
+    }
+
     [GlobalSetup]
-    public void Setup()
+    private void Setup()
     {
         var services = new ServiceCollection();
         RegisterServices(services);
@@ -28,7 +49,7 @@ public class StringsComparisonBenchmark
     }
 
     [Benchmark]
-    public void Run()
+    private void Run()
     {
         _stringsComparison.RunComparisons();
     }
