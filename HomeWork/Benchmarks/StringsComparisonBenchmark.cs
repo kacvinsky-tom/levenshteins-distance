@@ -56,7 +56,7 @@ public class StringsComparisonBenchmark
 
     private static void RegisterServices(IServiceCollection services)
     {
-        services.AddSingleton<ILevenshteinDistance, OldLevenshteinDistance>();
+        services.AddSingleton<ILevenshteinDistance, BonusLevenshteinDistance>();
         services.AddSingleton<IStringManipulator, StringManipulator>();
         services.AddSingleton<ISimilarityCalculator, SimilarityCalculator>();
         services.AddSingleton<IStringPreprocessor, CaseInsensitivePreprocessor>();
