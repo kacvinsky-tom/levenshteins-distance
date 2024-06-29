@@ -15,9 +15,9 @@ namespace HomeWork
         {
             // BenchmarkDotNet Benchmark (For more accurate benchmarking)
             BenchmarkRunner.Run<StringsComparisonBenchmark>();
-            
+
             // StopWatch Benchmark (For faster benchmarking)
-            
+
             /*
             var stringComparisonBenchmark = new StringsComparisonBenchmark();
             stringComparisonBenchmark.Setup();
@@ -31,12 +31,6 @@ namespace HomeWork
             Console.WriteLine($"Finished in: {ws.ElapsedTicks}");
             Console.WriteLine($"Finished in: {ws.Elapsed}");
             */
-            
-        }
-
-        private static void RegisterServices(IServiceCollection services)
-        {
-            services.AddSingleton<ILevenshteinDistance, OldLevenshteinDistance>();
         }
     }
 }

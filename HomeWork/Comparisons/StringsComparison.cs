@@ -1,4 +1,3 @@
-using System;
 using HomeWork.Comparers;
 
 namespace HomeWork.Comparisons;

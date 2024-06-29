@@ -9,7 +9,7 @@ namespace HomeWork.Benchmarks;
 public class StringsComparisonBenchmark
 {
     private StringsComparison _stringsComparison;
-    
+
     [GlobalSetup]
     public void Setup()
     {
@@ -27,7 +27,7 @@ public class StringsComparisonBenchmark
     {
         _stringsComparison.RunComparisons();
     }
-    
+
     private static void RegisterServices(IServiceCollection services)
     {
         services.AddSingleton<ILevenshteinDistance, OldLevenshteinDistance>();
