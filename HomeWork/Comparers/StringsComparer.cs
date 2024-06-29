@@ -43,8 +43,8 @@ public class StringsComparer
         var maxDistance = Math.Max(s1.Length, s2.Length);
 
         //Trimming the common prefix, documented at its implementation
-        var stringsPrefixTrimmed = _stringManipulator.TrimPrefix(s1, s2);
-        if (AnyStringIsNullOrEmpty(stringsPrefixTrimmed))
+        var prefixTrimmed = _stringManipulator.TrimPrefix(s1, s2);
+        if (AnyStringIsNullOrEmpty(prefixTrimmed))
         {
             return _similarityCalculator.CalculatePercentSimilarity(
                 maxDistance,
@@ -53,11 +53,11 @@ public class StringsComparer
         }
 
         //Trimming the common suffix, documented at its implementation
-        var stringsSuffixTrimmed = _stringManipulator.TrimSuffix(
-            stringsPrefixTrimmed.Item1,
-            stringsPrefixTrimmed.Item2
+        var suffixTrimmed = _stringManipulator.TrimSuffix(
+            prefixTrimmed.Item1,
+            prefixTrimmed.Item2
         );
-        if (AnyStringIsNullOrEmpty(stringsSuffixTrimmed))
+        if (AnyStringIsNullOrEmpty(suffixTrimmed))
         {
             return _similarityCalculator.CalculatePercentSimilarity(
                 maxDistance,
@@ -67,8 +67,8 @@ public class StringsComparer
 
         // This is the biggest bottleneck in the code. As the implementation cannot be changed, the aim is either lower the number of it's calls or shorten the input strings
         var distance = _levenshteinCalculator.Calculate(
-            stringsSuffixTrimmed.Item1,
-            stringsSuffixTrimmed.Item2
+            suffixTrimmed.Item1,
+            suffixTrimmed.Item2
         );
 
         return _similarityCalculator.CalculatePercentSimilarity(maxDistance, distance);
