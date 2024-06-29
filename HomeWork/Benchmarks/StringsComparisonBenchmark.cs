@@ -1,4 +1,5 @@
 using BenchmarkDotNet.Attributes;
+using HomeWork.Calculators;
 using HomeWork.Comparers;
 using HomeWork.Comparisons;
 using HomeWork.Levenshtein;
@@ -19,7 +20,9 @@ public class StringsComparisonBenchmark
         var serviceProvider = services.BuildServiceProvider();
         var stringComparer = new StringsComparer(
             serviceProvider.GetService<ILevenshteinDistance>(),
-            serviceProvider.GetService<IStringManipulator>()
+            serviceProvider.GetService<IStringManipulator>(),
+            serviceProvider.GetService<ISimilarityCalculator>(),
+            serviceProvider.GetService<IStringPreprocessor>()
         );
         _stringsComparison = new StringsComparison(stringComparer);
     }
@@ -34,5 +37,7 @@ public class StringsComparisonBenchmark
     {
         services.AddSingleton<ILevenshteinDistance, OldLevenshteinDistance>();
         services.AddSingleton<IStringManipulator, StringManipulator>();
+        services.AddSingleton<ISimilarityCalculator, SimilarityCalculator>();
+        services.AddSingleton<IStringPreprocessor, CaseInsensitivePreprocessor>();
     }
 }
