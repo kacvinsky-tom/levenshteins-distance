@@ -2,6 +2,7 @@ using BenchmarkDotNet.Attributes;
 using HomeWork.Comparers;
 using HomeWork.Comparisons;
 using HomeWork.Levenshtein;
+using HomeWork.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HomeWork.Benchmarks;
@@ -17,7 +18,8 @@ public class StringsComparisonBenchmark
         RegisterServices(services);
         var serviceProvider = services.BuildServiceProvider();
         var stringComparer = new StringsComparer(
-            serviceProvider.GetService<ILevenshteinDistance>()
+            serviceProvider.GetService<ILevenshteinDistance>(),
+            serviceProvider.GetService<IStringManipulator>()
         );
         _stringsComparison = new StringsComparison(stringComparer);
     }
@@ -31,5 +33,6 @@ public class StringsComparisonBenchmark
     private static void RegisterServices(IServiceCollection services)
     {
         services.AddSingleton<ILevenshteinDistance, OldLevenshteinDistance>();
+        services.AddSingleton<IStringManipulator, StringManipulator>();
     }
 }
