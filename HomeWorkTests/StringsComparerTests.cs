@@ -57,10 +57,7 @@ public class StringsComparerTests
     [TestMethod]
     [DataRow("abcde", "vwxyz")]
     [DataRow("12345", "6789")]
-    public void Compare_CompletelyDifferentStrings_Returns0PercentSimilarity(
-        string s1,
-        string s2
-    )
+    public void Compare_CompletelyDifferentStrings_Returns0PercentSimilarity(string s1, string s2)
     {
         _stringManipulatorMock.Setup(x => x.TrimPrefix(s1, s2)).Returns((s1, s2));
         _stringManipulatorMock.Setup(x => x.TrimSuffix(s1, s2)).Returns((s1, s2));
@@ -92,10 +89,7 @@ public class StringsComparerTests
     [TestMethod]
     [DataRow("", "second")]
     [DataRow("first", "")]
-    public void Compare_EmptyAndNonEmptyString_Returns0PercentSimilarity(
-        string s1,
-        string s2
-    )
+    public void Compare_EmptyAndNonEmptyString_Returns0PercentSimilarity(string s1, string s2)
     {
         _stringManipulatorMock.Setup(x => x.TrimPrefix(s1, s2)).Returns((s1, s2));
         _stringManipulatorMock.Setup(x => x.TrimSuffix(s1, s2)).Returns((s1, s2));

@@ -53,10 +53,7 @@ public class StringsComparer
         }
 
         //Trimming the common suffix, documented at its implementation
-        var suffixTrimmed = _stringManipulator.TrimSuffix(
-            prefixTrimmed.Item1,
-            prefixTrimmed.Item2
-        );
+        var suffixTrimmed = _stringManipulator.TrimSuffix(prefixTrimmed.Item1, prefixTrimmed.Item2);
         if (AnyStringIsNullOrEmpty(suffixTrimmed))
         {
             return _similarityCalculator.CalculatePercentSimilarity(
@@ -66,10 +63,7 @@ public class StringsComparer
         }
 
         // This is the biggest bottleneck in the code. As the implementation cannot be changed, the aim is either lower the number of it's calls or shorten the input strings
-        var distance = _levenshteinCalculator.Calculate(
-            suffixTrimmed.Item1,
-            suffixTrimmed.Item2
-        );
+        var distance = _levenshteinCalculator.Calculate(suffixTrimmed.Item1, suffixTrimmed.Item2);
 
         return _similarityCalculator.CalculatePercentSimilarity(maxDistance, distance);
     }
