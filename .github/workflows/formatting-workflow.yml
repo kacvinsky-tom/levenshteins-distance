@@ -1,15 +1,11 @@
 name: .NET Formatting
 
 on:
-  push:
-    branches: [ "main", "dev" ]
-  pull_request:
-    branches: [ "main", "dev" ]
+  workflow_call:
 
 jobs:
   check-formatting:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
       - name: Setup .NET
