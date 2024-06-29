@@ -1,3 +1,4 @@
+using System;
 using HomeWork.Levenshtein;
 
 namespace HomeWork.Comparers;
@@ -21,12 +22,10 @@ public class StringsComparer
         //TODO do NOT use paralel or threading or tasks.
         //TODO BONUS: Try to find a different Levenshtein implementation and refactor the solution a bit to enable use of both implementations
 
-        var maxDistance = first.Length;
-        if (second.Length > maxDistance)
-        {
-            maxDistance = second.Length;
-        }
+        // For mathematical operations, if possible, it's best to use Math class as they should be wll optimized and foremost more readable
+        var maxDistance = Math.Max(first.Length, second.Length);
 
+        // This is the biggest bottleneck in the code. As the implemenation cannot be changed, the aim is either lower the number of it's calls or shorten the input strings
         var distance = _levenshteinCalculator.Calculate(first, second);
 
         var percentSimilarity = 0;
@@ -36,7 +35,9 @@ public class StringsComparer
         }
         else
         {
-            percentSimilarity = (int)((float)100 / maxDistance) * (maxDistance - distance);
+            //If not extra necessary, we want to ideally avoid explicit type casting
+            // -> https://www.codeproject.com/Articles/8052/Type-casting-impact-over-execution-performance-in
+            percentSimilarity = 100 * (maxDistance - distance) / maxDistance;
         }
         return percentSimilarity;
     }
