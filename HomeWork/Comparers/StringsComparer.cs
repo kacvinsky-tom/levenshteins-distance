@@ -9,7 +9,10 @@ public class StringsComparer
     private readonly ILevenshteinDistance _levenshteinCalculator;
     private readonly IStringManipulator _stringManipulator;
 
-    public StringsComparer(ILevenshteinDistance levenshteinCalculator, IStringManipulator stringManipulator)
+    public StringsComparer(
+        ILevenshteinDistance levenshteinCalculator,
+        IStringManipulator stringManipulator
+    )
     {
         _levenshteinCalculator = levenshteinCalculator;
         _stringManipulator = stringManipulator;
@@ -24,26 +27,32 @@ public class StringsComparer
         //TODO comment the code, what is wrong what is lovering accuracy why its improving performance etc...
         //TODO do NOT use paralel or threading or tasks.
         //TODO BONUS: Try to find a different Levenshtein implementation and refactor the solution a bit to enable use of both implementations
-        
+
         // For mathematical operations, if possible, it's best to use Math class as they should be wll optimized and foremost more readable
         var maxDistance = Math.Max(first.Length, second.Length);
-        
+
         //Trimming the common prefix, documented at its implementation
         var stringsPrefixTrimmed = _stringManipulator.TrimPrefix(first, second);
         if (AnyStringIsNullOrEmpty(stringsPrefixTrimmed))
         {
             return CalculatePercentSimilarity(maxDistance, Math.Abs(first.Length - second.Length));
         }
-        
+
         //Trimming the common suffix, documented at its implementation
-        var stringsSuffixTrimmed = _stringManipulator.TrimSuffix(stringsPrefixTrimmed.Item1, stringsPrefixTrimmed.Item2);
+        var stringsSuffixTrimmed = _stringManipulator.TrimSuffix(
+            stringsPrefixTrimmed.Item1,
+            stringsPrefixTrimmed.Item2
+        );
         if (AnyStringIsNullOrEmpty(stringsSuffixTrimmed))
         {
             return CalculatePercentSimilarity(maxDistance, Math.Abs(first.Length - second.Length));
         }
 
         // This is the biggest bottleneck in the code. As the implementation cannot be changed, the aim is either lower the number of it's calls or shorten the input strings
-        var distance = _levenshteinCalculator.Calculate(stringsSuffixTrimmed.Item1, stringsSuffixTrimmed.Item2);
+        var distance = _levenshteinCalculator.Calculate(
+            stringsSuffixTrimmed.Item1,
+            stringsSuffixTrimmed.Item2
+        );
 
         return CalculatePercentSimilarity(maxDistance, distance);
     }
@@ -61,6 +70,7 @@ public class StringsComparer
 
     private static bool AnyStringIsNullOrEmpty((string, string) prefixTrimmed)
     {
-        return string.IsNullOrEmpty(prefixTrimmed.Item1) || string.IsNullOrEmpty(prefixTrimmed.Item2);
+        return string.IsNullOrEmpty(prefixTrimmed.Item1)
+            || string.IsNullOrEmpty(prefixTrimmed.Item2);
     }
 }

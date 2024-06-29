@@ -26,10 +26,10 @@ public class StringManipulator : IStringManipulator
 
         var firstPrefixTrimmed = first.Substring(prefixLength);
         var secondPrefixTrimmed = second.Substring(prefixLength);
-        
+
         return (firstPrefixTrimmed, secondPrefixTrimmed);
     }
-    
+
     public (string, string) TrimSuffix(string first, string second)
     {
         // This method trims the common suffix of both strings before passing them to the levenshteinCalculator
@@ -50,7 +50,7 @@ public class StringManipulator : IStringManipulator
 
         var firstTrimmed = first.Substring(0, first.Length - suffixLength);
         var secondTrimmed = second.Substring(0, second.Length - suffixLength);
-        
+
         return (firstTrimmed, secondTrimmed);
     }
 }

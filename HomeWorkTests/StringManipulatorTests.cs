@@ -18,7 +18,7 @@ public class StringManipulatorTests
         Assert.IsTrue(string.IsNullOrEmpty(result.Item1));
         Assert.IsTrue(string.IsNullOrEmpty(result.Item2));
     }
-    
+
     [TestMethod]
     [DataRow("testing", "testing")]
     [DataRow("this is the same string", "this is the same string")]
@@ -29,7 +29,7 @@ public class StringManipulatorTests
         Assert.IsTrue(string.IsNullOrEmpty(result.Item1));
         Assert.IsTrue(string.IsNullOrEmpty(result.Item2));
     }
-    
+
     [TestMethod]
     [DataRow("hello world", "hello")]
     [DataRow("prefixString", "prefix")]
@@ -73,14 +73,14 @@ public class StringManipulatorTests
         Assert.AreEqual(first, result.Item1);
         Assert.AreEqual(second, result.Item2);
     }
-    
+
     [TestMethod]
     [DataRow("same prefix different suffix", "same prefix but different suffix")]
     public void TrimPrefix_DifferentStrings_ReturnsTrimmedStrings(string first, string second)
     {
         var result = _stringManipulator.TrimPrefix(first, second);
 
-        Assert.AreEqual("different suffix" ,result.Item1);
+        Assert.AreEqual("different suffix", result.Item1);
         Assert.AreEqual("but different suffix", result.Item2);
     }
 

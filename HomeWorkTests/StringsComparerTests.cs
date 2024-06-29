@@ -17,7 +17,10 @@ public class StringsComparerTests
     {
         _levenshteinCalculatorMock = new Mock<ILevenshteinDistance>();
         _stringManipulatorMock = new Mock<IStringManipulator>();
-        _comparer = new StringsComparer(_levenshteinCalculatorMock.Object, _stringManipulatorMock.Object);
+        _comparer = new StringsComparer(
+            _levenshteinCalculatorMock.Object,
+            _stringManipulatorMock.Object
+        );
     }
 
     [TestMethod]
@@ -25,8 +28,12 @@ public class StringsComparerTests
     [DataRow("this is the same string", "this is the same string")]
     public void Compare_IdenticalStrings_Returns100PercentSimilarity(string first, string second)
     {
-        _stringManipulatorMock.Setup(x => x.TrimPrefix(first, second)).Returns((string.Empty, string.Empty));
-        _stringManipulatorMock.Setup(x => x.TrimSuffix(first, second)).Returns((string.Empty, string.Empty));
+        _stringManipulatorMock
+            .Setup(x => x.TrimPrefix(first, second))
+            .Returns((string.Empty, string.Empty));
+        _stringManipulatorMock
+            .Setup(x => x.TrimSuffix(first, second))
+            .Returns((string.Empty, string.Empty));
         _levenshteinCalculatorMock.Setup(x => x.Calculate(first, second)).Returns(0);
 
         var result = _comparer.Compare(first, second);
@@ -37,7 +44,10 @@ public class StringsComparerTests
     [TestMethod]
     [DataRow("abcde", "vwxyz")]
     [DataRow("12345", "6789")]
-    public void Compare_CompletelyDifferentStrings_Returns0PercentSimilarity(string first, string second)
+    public void Compare_CompletelyDifferentStrings_Returns0PercentSimilarity(
+        string first,
+        string second
+    )
     {
         _stringManipulatorMock.Setup(x => x.TrimPrefix(first, second)).Returns((first, second));
         _stringManipulatorMock.Setup(x => x.TrimSuffix(first, second)).Returns((first, second));
@@ -63,7 +73,10 @@ public class StringsComparerTests
     [TestMethod]
     [DataRow("", "second")]
     [DataRow("first", "")]
-    public void Compare_EmptyAndNonEmptyString_Returns0PercentSimilarity(string first, string second)
+    public void Compare_EmptyAndNonEmptyString_Returns0PercentSimilarity(
+        string first,
+        string second
+    )
     {
         _stringManipulatorMock.Setup(x => x.TrimPrefix(first, second)).Returns((first, second));
         _stringManipulatorMock.Setup(x => x.TrimSuffix(first, second)).Returns((first, second));
