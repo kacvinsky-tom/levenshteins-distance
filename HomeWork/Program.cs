@@ -8,7 +8,7 @@ namespace HomeWork
         {
             var stringComparisonBenchmark = new StringsComparisonBenchmark();
 
-            // BenchmarkDotNet Benchmark (For more accurate benchmarking)
+            // BenchmarkDotNet Benchmark (For more accurate benchmarking), Runnable only in Release configuration
             stringComparisonBenchmark.ExecuteWithDotNetBenchmark();
 
             // StopWatch Benchmark (For faster benchmarking)

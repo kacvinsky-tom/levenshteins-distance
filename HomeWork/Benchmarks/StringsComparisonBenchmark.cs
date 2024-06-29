@@ -34,7 +34,7 @@ public class StringsComparisonBenchmark
     }
 
     [GlobalSetup]
-    private void Setup()
+    public void Setup()
     {
         var services = new ServiceCollection();
         RegisterServices(services);
@@ -49,7 +49,7 @@ public class StringsComparisonBenchmark
     }
 
     [Benchmark]
-    private void Run()
+    public void Run()
     {
         _stringsComparison.RunComparisons();
     }
