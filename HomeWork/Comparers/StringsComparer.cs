@@ -12,7 +12,12 @@ public class StringsComparer
     private readonly ISimilarityCalculator _similarityCalculator;
     private readonly IStringPreprocessor _stringPreprocessor;
 
-    public StringsComparer(ILevenshteinDistance levenshteinCalculator, IStringManipulator stringManipulator, ISimilarityCalculator similarityCalculator, IStringPreprocessor stringPreprocessor)
+    public StringsComparer(
+        ILevenshteinDistance levenshteinCalculator,
+        IStringManipulator stringManipulator,
+        ISimilarityCalculator similarityCalculator,
+        IStringPreprocessor stringPreprocessor
+    )
     {
         _levenshteinCalculator = levenshteinCalculator;
         _stringManipulator = stringManipulator;
@@ -25,9 +30,9 @@ public class StringsComparer
         //Case(In)sensitive processing
         var s1 = _stringPreprocessor.Process(string1);
         var s2 = _stringPreprocessor.Process(string2);
-        
+
         //Work with this functiuon as this function will just present similarity between segments to end user so it doesn't need to be 100% accurate but it needs to be fast
-        
+
         //TODO optimize to do it faster.
         //TODO create case insensitive matching as well.
         //TODO comment the code, what is wrong what is lovering accuracy why its improving performance etc...
@@ -41,7 +46,10 @@ public class StringsComparer
         var stringsPrefixTrimmed = _stringManipulator.TrimPrefix(s1, s2);
         if (AnyStringIsNullOrEmpty(stringsPrefixTrimmed))
         {
-            return _similarityCalculator.CalculatePercentSimilarity(maxDistance, Math.Abs(s1.Length - s2.Length));
+            return _similarityCalculator.CalculatePercentSimilarity(
+                maxDistance,
+                Math.Abs(s1.Length - s2.Length)
+            );
         }
 
         //Trimming the common suffix, documented at its implementation
@@ -51,7 +59,10 @@ public class StringsComparer
         );
         if (AnyStringIsNullOrEmpty(stringsSuffixTrimmed))
         {
-            return _similarityCalculator.CalculatePercentSimilarity(maxDistance, Math.Abs(s1.Length - s2.Length));
+            return _similarityCalculator.CalculatePercentSimilarity(
+                maxDistance,
+                Math.Abs(s1.Length - s2.Length)
+            );
         }
 
         // This is the biggest bottleneck in the code. As the implementation cannot be changed, the aim is either lower the number of it's calls or shorten the input strings
@@ -62,7 +73,7 @@ public class StringsComparer
 
         return _similarityCalculator.CalculatePercentSimilarity(maxDistance, distance);
     }
-    
+
     private static bool AnyStringIsNullOrEmpty((string, string) prefixTrimmed)
     {
         return string.IsNullOrEmpty(prefixTrimmed.Item1)

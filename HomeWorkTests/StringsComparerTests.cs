@@ -43,10 +43,12 @@ public class StringsComparerTests
             .Setup(x => x.TrimSuffix(first, second))
             .Returns((string.Empty, string.Empty));
         _levenshteinCalculatorMock.Setup(x => x.Calculate(first, second)).Returns(0);
-        _similiarityCalculatorMock.Setup(x => x.CalculatePercentSimilarity(first.Length, 0)).Returns(100);
+        _similiarityCalculatorMock
+            .Setup(x => x.CalculatePercentSimilarity(first.Length, 0))
+            .Returns(100);
         _stringPreprocessorMock.Setup(x => x.Process(first)).Returns(first);
         _stringPreprocessorMock.Setup(x => x.Process(second)).Returns(second);
-        
+
         var result = _comparer.Compare(first, second);
 
         Assert.AreEqual(100, result);
@@ -65,7 +67,7 @@ public class StringsComparerTests
         _levenshteinCalculatorMock.Setup(x => x.Calculate(first, second)).Returns(5);
         _stringPreprocessorMock.Setup(x => x.Process(first)).Returns(first);
         _stringPreprocessorMock.Setup(x => x.Process(second)).Returns(second);
-        
+
         var result = _comparer.Compare(first, second);
 
         Assert.AreEqual(0, result);
@@ -81,7 +83,7 @@ public class StringsComparerTests
         _similiarityCalculatorMock.Setup(x => x.CalculatePercentSimilarity(0, 0)).Returns(100);
         _stringPreprocessorMock.Setup(x => x.Process(first)).Returns(first);
         _stringPreprocessorMock.Setup(x => x.Process(second)).Returns(second);
-        
+
         var result = _comparer.Compare(first, second);
 
         Assert.AreEqual(100, result);
@@ -101,24 +103,31 @@ public class StringsComparerTests
         _levenshteinCalculatorMock.Setup(x => x.Calculate("first", "")).Returns(5);
         _stringPreprocessorMock.Setup(x => x.Process(first)).Returns(first);
         _stringPreprocessorMock.Setup(x => x.Process(second)).Returns(second);
-        
+
         var result = _comparer.Compare(first, second);
 
         Assert.AreEqual(0, result);
     }
-    
+
     [TestMethod]
     [DataRow("THIS IS THE SAME STRING", "this is the same string")]
     [DataRow("also This is The same String", "alsO thiS is the samE strIng")]
-    public void Compare_CaseInsensitiveIdenticalStrings_ReturnsCorrectSimilarity(string first, string second)
+    public void Compare_CaseInsensitiveIdenticalStrings_ReturnsCorrectSimilarity(
+        string first,
+        string second
+    )
     {
         _stringPreprocessorMock.Setup(x => x.Process(first)).Returns(first.ToLowerInvariant());
         _stringPreprocessorMock.Setup(x => x.Process(second)).Returns(second.ToLowerInvariant());
-        _stringManipulatorMock.Setup(x => x.TrimPrefix(first.ToLowerInvariant(), second.ToLowerInvariant())).Returns((string.Empty, string.Empty));
-        _similiarityCalculatorMock.Setup(x => x.CalculatePercentSimilarity(first.Length, 0)).Returns(100);
-        
+        _stringManipulatorMock
+            .Setup(x => x.TrimPrefix(first.ToLowerInvariant(), second.ToLowerInvariant()))
+            .Returns((string.Empty, string.Empty));
+        _similiarityCalculatorMock
+            .Setup(x => x.CalculatePercentSimilarity(first.Length, 0))
+            .Returns(100);
+
         var result = _comparer.Compare(first, second);
-        
+
         Assert.AreEqual(100, result);
     }
 }
