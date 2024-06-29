@@ -1,0 +1,14 @@
+name: .NET Main workflow
+
+on:
+  push:
+    branches: [ "main", "dev" ]
+  pull_request:
+    branches: [ "main", "dev" ]
+
+jobs:
+  formatting:
+    uses: ./.github/workflows/formatting-workflow.yml
+
+  testing:
+    uses: ./.github/workflows/testing-workflow.yml
