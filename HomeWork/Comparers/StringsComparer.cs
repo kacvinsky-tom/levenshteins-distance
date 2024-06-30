@@ -36,7 +36,7 @@ public class StringsComparer
         {
             return 100;
         }
-        
+
         //Edge case of one of the strings being empty
         if (minLength == 0)
         {
