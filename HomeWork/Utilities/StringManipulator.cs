@@ -24,6 +24,12 @@ public class StringManipulator : IStringManipulator
             }
         }
 
+        //Avoid copying the strings if the prefix was not found
+        if (prefixLength == 0)
+        {
+            return (first, second);
+        }
+
         var firstPrefixTrimmed = first.Substring(prefixLength);
         var secondPrefixTrimmed = second.Substring(prefixLength);
 
@@ -46,6 +52,12 @@ public class StringManipulator : IStringManipulator
             {
                 break;
             }
+        }
+
+        //Avoid copying the strings if the prefix was not found
+        if (suffixLength == 0)
+        {
+            return (first, second);
         }
 
         var firstTrimmed = first.Substring(0, first.Length - suffixLength);
