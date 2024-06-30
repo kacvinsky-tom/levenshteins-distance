@@ -31,6 +31,17 @@ public class StringsComparer
         var maxLength = Math.Max(string1.Length, string2.Length);
         var minLength = Math.Min(string1.Length, string2.Length);
 
+        //Edge case of both strings being empty
+        if (maxLength == 0)
+        {
+            return 100;
+        }
+        //Edge case of one of the strings being empty
+        if (minLength == 0)
+        {
+            return 0;
+        }
+
         // If it's impossible to reach the minimum percentage, early exit
         // This is lowering accuracy, but can significantly lower the number of calculations, which bumps the performance especially with longer strings
         // I also avoid type casting, so the accuracy a little bit lower, however performance better
