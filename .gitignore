@@ -3,3 +3,6 @@
 
 obj/
 bin/
+BenchmarkDotNet.Artifacts/
+HomeWork.sln.DotSettings.user
+TestResults/
