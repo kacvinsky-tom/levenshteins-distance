@@ -12,7 +12,7 @@ public class StringManipulator : IStringManipulator
         //Based on DotNetBenchmark, the mean time of the Compare method lowered from 4.486s to 1.041s by trimming the common prefix
         var minLength = Math.Min(first.Length, second.Length);
         var prefixLength = 0;
-        for (int i = 0; i < minLength; i++)
+        for (var i = 0; i < minLength; i++)
         {
             if (first[i] == second[i])
             {
